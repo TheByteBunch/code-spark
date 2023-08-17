@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "code-spark"
+version = "0.1.0"
+description = ""
+authors = ["Erik K Anderson <erik@19bit.net>"]
+readme = "README.md"
+packages = [{include = "code_spark"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+Django = "^4.2.4"
+django-allauth = "^0.54.0"
+social-auth-app-django = "^5.2.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
