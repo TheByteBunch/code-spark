@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 class MatchRequest(models.Model):
     match_request_sender = models.ForeignKey(User, related_name='sent_requests', on_delete=models.CASCADE)
     match_request_receiver = models.ForeignKey(User, related_name='received_requests', on_delete=models.CASCADE)
-    match_request_status = models.IntegerField()
+    match_request_status = models.IntegerField()  # 1 is request sent, -1 is sender declined, 2 is receiver accepted, -2 is receiver declined.
     created_date = models.DateTimeField(auto_now_add=True)
     accepted_date = models.DateTimeField(null=True, blank=True)
 
