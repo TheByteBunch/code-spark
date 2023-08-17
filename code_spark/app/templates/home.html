@@ -1,10 +1,30 @@
-{% extends 'base.html' %}
-{% block title %}HOME{% endblock %}
-{% block content %}
-    <div class="row">
-        <div class="col-sm-12 mb-3">
-            <h4 class="text-center">Welcome {{ user.username }}</h4>
-            <h4 class="text-center">Your potential match is {{ potential_match.username }}</h4>
-        </div>
+{% extends 'base.html' %} {% block title %}HOME{% endblock %} {% block content%}
+<div class="row">
+  <div class="col-sm-12 mb-3">
+    <h4 class="text-center">Welcome {{ user.username }}</h4>
+    <h4 class="text-center">{{ potential_match_message }}</h4>
+    {% if potential_match %}
+    <h4 class="text-center">Would you like to request a match?</h4>
+    <div class="text-center">
+      <form action="decline" method="GET">
+        <button type="submit" id="noButton">No</button>
+        <input
+          type="hidden"
+          name="target-user"
+          value="{{ potential_match.username }}"
+        />
+      </form>
+
+      <form action="request" method="GET">
+        <button type="submit" id="yesButton">Yes</button>
+        <input
+          type="hidden"
+          name="target-user"
+          value="{{ potential_match.username }}"
+        />
+      </form>
     </div>
+    {% endif %}
+  </div>
+</div>
 {% endblock %}
