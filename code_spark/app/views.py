@@ -7,8 +7,10 @@ from django.template import loader
 
 # Create your views here.
 
+
 def login(request):
-    return render(request, 'login.html')
+    return render(request, "login.html")
+
 
 @login_required
 def home(request):
@@ -24,16 +26,17 @@ def get_potential_match(user):
     :param user:
     :return:
     """
-    potential_match = (User.objects.
-                       exclude(received_requests__match_request_sender__username
-                                                     =user.username)
-                       .exclude(username=user.username)
-                       [0]
-    )
-        # received_requests__match_requst_sender__user=user)
 
-    # Blog.objects.filter(entry__headline__contains="Lennon")
-    #.exclude(matchrequest__match_request_receiver=user)
-            # .order_by(user.username)[0])
+    from random import choice
+
+    pks = (
+        User.objects.exclude(
+            received_requests__match_request_sender__username=user.username
+        )
+        .exclude(username=user.username)
+        .values_list("pk", flat=True)
+    )
+    random_pk = choice(pks)
+    potential_match = User.objects.get(pk=random_pk)
 
     return potential_match

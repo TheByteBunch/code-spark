@@ -8,26 +8,55 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='UserAccount',
+            name="UserAccount",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('github_profile_name', models.CharField(max_length=255, unique=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("github_profile_name", models.CharField(max_length=255, unique=True)),
             ],
         ),
         migrations.CreateModel(
-            name='MatchRequest',
+            name="MatchRequest",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('match_request_status', models.IntegerField()),
-                ('created_date', models.DateTimeField(auto_now_add=True)),
-                ('accepted_date', models.DateTimeField(blank=True, null=True)),
-                ('match_request_receiver', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='received_requests', to='app.useraccount')),
-                ('match_request_sender', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='sent_requests', to='app.useraccount')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("match_request_status", models.IntegerField()),
+                ("created_date", models.DateTimeField(auto_now_add=True)),
+                ("accepted_date", models.DateTimeField(blank=True, null=True)),
+                (
+                    "match_request_receiver",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="received_requests",
+                        to="app.useraccount",
+                    ),
+                ),
+                (
+                    "match_request_sender",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="sent_requests",
+                        to="app.useraccount",
+                    ),
+                ),
             ],
         ),
     ]

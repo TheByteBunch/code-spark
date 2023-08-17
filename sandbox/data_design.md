@@ -8,7 +8,7 @@ It turns out, the current data design, which I lifted from a tinder clone tutori
 is sufficient to hold this information.
 
 We will just need to do a search of the database model MatchRequest, with
-match_request_sender equal to current user or match_request_receiver equal to 
+match_request_sender equal to current user or match_request_receiver equal to
 current user.
 These are the profiles we should not show to the user.
 Then we search in the users database, with the condition that username not equal
@@ -25,13 +25,13 @@ accepted_date = models.DateTimeField(null=True, blank=True)
 
 I want to adjust the codes in match_request_status
 0 would be unseen, except in that case there will be no entry in the database at all
-1 will be request sent, it means user who was presented with the potential match first will 
+1 will be request sent, it means user who was presented with the potential match first will
 have clicked yes or "swiped right" on the other user.
--1 will be rejected. It means the user who was presented with the potential match said no 
+-1 will be rejected. It means the user who was presented with the potential match said no
 or "swiped left" on the other user.
-(side note: will it be possible to have a record with usera as sender rejecting userb as potential 
-receiver, and a separate record with userb as sender rejecting user a as a potential receiver. 
-Let's say no. Becuase if userA rejected userB, let's just not show userA to userB.)  
+(side note: will it be possible to have a record with usera as sender rejecting userb as potential
+receiver, and a separate record with userb as sender rejecting user a as a potential receiver.
+Let's say no. Becuase if userA rejected userB, let's just not show userA to userB.)
 Summary of status codes for match_request_status: 1 is request sent, -1 is sender declined, 2 is receiver accepted, -2 is receiver declined.
 
 Let's go and update the model code

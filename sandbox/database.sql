@@ -19,4 +19,3 @@ CREATE TABLE match_request (
     created_date TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
     accepted_date TIMESTAMPTZ
 );
-
