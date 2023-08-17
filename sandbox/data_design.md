@@ -1,6 +1,7 @@
 # Data Design
 
 In order to show a user a new profile from another user, the app needs to know:
+
 - what other users the currently logged in user has already seen (and reacted to)
 - What users are signed up for the app overall
 
@@ -17,6 +18,7 @@ the usernames found in the previous step.
 Also, here is more commentary on the MatchRequest datatype.
 
 Currently in the models file:
+
 ```py
 match_request_status = models.IntegerField()  # 0 is requested, 1 is accepted, -1 is rejected
 created_date = models.DateTimeField(auto_now_add=True)
@@ -35,8 +37,6 @@ Let's say no. Becuase if userA rejected userB, let's just not show userA to user
 Summary of status codes for match_request_status: 1 is request sent, -1 is sender declined, 2 is receiver accepted, -2 is receiver declined.
 
 Let's go and update the model code
-
-
 
 side note: do I want a uuid for user IDs, or is it enough to just use the github username.
 I think for now, github username will do. But maybe later I will add a uuid.
