@@ -7,7 +7,7 @@
       {% if not potential_match %}
       <p>There are no potential matches available. Please check back later</p>
       {% else %}
-      <p>"Your potential match is " + potential_match.username</p>
+      <p>Your potential match is {{ potential_match.username }}</p>
       <p>Would you like to request a match?</p>
       <div class="text-center">
         <form action="{% url 'decline' %}" method="POST">
