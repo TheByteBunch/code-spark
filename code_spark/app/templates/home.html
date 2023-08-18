@@ -1,30 +1,52 @@
-{% extends 'base.html' %} {% block title %}HOME{% endblock %} {% block content%}
-<div class="row">
-  <div class="col-sm-12 mb-3">
-    <h4 class="text-center">Welcome {{ user.username }}</h4>
-    <h4 class="text-center">{{ potential_match_message }}</h4>
-    {% if potential_match %}
-    <h4 class="text-center">Would you like to request a match?</h4>
-    <div class="text-center">
-      <form action="decline" method="GET">
-        <button type="submit" id="noButton">No</button>
-        <input
-          type="hidden"
-          name="target-user"
-          value="{{ potential_match.username }}"
-        />
-      </form>
+{% extends 'base.html' %} {% block title %}Home{% endblock %} {% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 mb-3">
+      <h1>{{ user.username }}, Welcome to Code Spark</h1>
+      <h2>{{ potential_match_message }}</h2>
 
-      <form action="request" method="GET">
-        <button type="submit" id="yesButton">Yes</button>
-        <input
-          type="hidden"
-          name="target-user"
-          value="{{ potential_match.username }}"
-        />
+      {% if potential_match %}
+      <h3>Would you like to request a match?</h3>
+      <div class="text-center">
+        <form action="{% url 'decline' %}" method="POST">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger" id="noButton">No</button>
+          <input
+            type="hidden"
+            name="target-user"
+            value="{{ potential_match.username }}"
+          />
+        </form>
+
+        <form action="{% url 'request' %}" method="POST">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-success" id="yesButton">
+            Yes
+          </button>
+          <input
+            type="hidden"
+            name="target-user"
+            value="{{ potential_match.username }}"
+          />
+        </form>
+      </div>
+      {% endif %}
+
+      <div>
+        <p>See your <a href="/matches/">matches</a></p>
+      </div>
+      <div>
+        <p><a href="/logout">Logout</a></p>
+      </div>
+    </div>
+    <div>
+      <form action="/delete_account/" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">
+          Delete Your Account
+        </button>
       </form>
     </div>
-    {% endif %}
   </div>
 </div>
 {% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %} {% block title %}Match{% endblock %} {% block content %}
+<div class="row">
+  <div class="col-md-8 mx-auto social-container my-2 order-md-1">
+    <h3>You matched with {{ other_user.username }}!</h3>
+    <p>
+      Visit their
+      <a href="https://github.com/{{ other_user.username }}" target="_"
+        >GitHub profile</a
+      >
+      to connect with them.
+    </p>
+  </div>
+  <div>
+    <a href="/" class="btn btn-primary">Go Back Home</a>
+  </div>
+</div>
+{% endblock %}
