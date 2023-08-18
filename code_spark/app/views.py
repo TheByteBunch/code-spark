@@ -12,23 +12,21 @@ from django.contrib.auth import logout
 
 
 def login(request):
-    return render(request, "login.html")
+    return render(request, "app/login.html")
 
 
 @login_required
 def home(request):
     potential_match = get_potential_match(request.user)
-    if potential_match:
-        potential_match_message = "Your potential match is " + potential_match.username
-    else:
-        potential_match_message = (
-            "No potential matches available. Please check back later"
-        )
+    number_of_matches = count_matches(request.user)
+    format_pluralizer = "" if number_of_matches == 1 else "es"
     context = {
-        "potential_match_message": potential_match_message,
+        "number_of_matches": number_of_matches,
+        "format_pluralizer": format_pluralizer,
         "potential_match": potential_match,
     }
-    template = loader.get_template("home.html")
+    print("hello world")
+    template = loader.get_template("app/home.html")
     return HttpResponse(template.render(context, request))
 
 
@@ -61,7 +59,7 @@ def match(request, match_request_id):
         "current_user": current_user,
         "other_user": other_user,
     }
-    return render(request, "match.html", context)
+    return render(request, "app/match.html", context)
 
 
 @login_required
@@ -163,7 +161,7 @@ def get_matched_users(current_user):
 def matches(request):
     matched_users = get_matched_users(request.user)
     context = {"matched_users": matched_users}
-    return render(request, "matches.html", context)
+    return render(request, "app/matches.html", context)
 
 
 @login_required
@@ -176,3 +174,24 @@ def delete_account(request):
         logout(request)
 
         return redirect("home")  # Redirect to a relevant page after account deletion
+
+
+def count_matches(user):
+    """
+    Given a user, returns the number of accepted matches
+    (match requests with status code 2)
+    which have that user as a sender or a receiver.
+
+    :param user:
+    :return:
+    """
+    return (
+        MatchRequest.objects.filter(
+            match_request_status=2,
+            match_request_sender=user,
+        )
+        | MatchRequest.objects.filter(
+            match_request_status=2,
+            match_request_receiver=user,
+        )
+    ).count()
