@@ -1,0 +1,17 @@
+{% extends 'app/base.html' %} {% block title %}Welcome To Code Spark!{% endblock %} {% block content %}
+<h3>Please Log In With GitHub</h3>
+<p>Code Spark is a dating-style app for programmers to find project partners.</p>
+
+<div class="row">
+  <div class="col-md-8 mx-auto social-container my-2 order-md-1">
+    <button class="btn btn-primary mb-2">
+      <a href="{% url 'social:begin' 'github' %}"> Login With GitHub </a>
+    </button>
+  </div>
+  <br>
+  <h3>Tell me more.</h3>
+  <p>You can learn more about Code Spark on the marketing page <a href="https://thebytebunch.github.io/projects/codespark/">here</a>, or on GitHub <a href="https://github.com/TheByteBunch/code-spark">here</a>.</p>
+</div>
+
+
+{% endblock %}

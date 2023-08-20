@@ -9,4 +9,6 @@
   - [x] Send a form response to /match
   - [x] Receive the form and create a MatchRequest object
   - [x] Handle the case on the home page when there are no matches available
-  - [ ] Handle the case when user requests a match and a match reqeust object exists with current user as the target
+- [x] Handle the case when user requests a match and a match request object exists with current user as the target
+- [ ] Show a page with a history of the User's matches.
+  - asdf

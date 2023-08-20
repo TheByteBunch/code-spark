@@ -1,0 +1,61 @@
+{% extends 'app/base.html' %} {% block title %}Home{% endblock %} {% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 mb-3">
+      <h2>Hello {{ user.username }}. Welcome to Code Spark</h2>
+      <h3>Potential Matches</h3>
+      {% if not potential_match %}
+      <p>There are no potential matches available. Please check back later</p>
+      {% else %}
+      <p>Your potential match is {{ potential_match.username }}. Learn more about them on <a href="https://github.com/{{ potential_match.username }}">GitHub</a>.</p>
+      <p>Would you like to request a match?</p>
+      <div class="text-center">
+        <form action="{% url 'decline' %}" method="POST">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger" id="noButton">No</button>
+          <input
+            type="hidden"
+            name="target-user"
+            value="{{ potential_match.username }}"
+          />
+        </form>
+
+        <form action="{% url 'request' %}" method="POST">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-success" id="yesButton">
+            Yes
+          </button>
+          <input
+            type="hidden"
+            name="target-user"
+            value="{{ potential_match.username }}"
+          />
+        </form>
+      </div>
+      {% endif %}
+
+      <div>
+        <h3>Matches</h3>
+        <p>You have {{ number_of_matches }} match{{ format_pluralizer }}.</p>
+        {% if number_of_matches %}
+        <p>See your match{{ format_pluralizer }} <a href="matches">here</a>.</p>
+        {% endif %}
+      </div>
+      <h3>Account Management</h3>
+      <div>
+        <p><a href="/logout">Logout</a></p>
+      </div>
+    </div>
+<!--    todo: recycle matches-->
+    <div>
+      <h4>Danger zone</h4>
+      <form action="/delete_account/" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">
+          Delete Your Account
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

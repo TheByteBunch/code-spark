@@ -27,4 +27,7 @@ urlpatterns = [
     path("", views.home, name="home"),
     path("request", views.request, name="request"),
     path("decline", views.decline, name="decline"),
+    path("match/<int:match_request_id>", views.match, name="match"),
+    path("matches/", views.matches, name="matches"),
+    path("delete_account/", views.delete_account, name="delete_account"),
 ]
